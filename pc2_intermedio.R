@@ -136,14 +136,4 @@ ggplot(testing, aes(class, anomaly_score)) +
 # Si es propicio aplicar el algoritmo.
 
 
-## Paso 5. Comparación con regresión logística ----
-
-high_iso <- quantile(testing$anomaly_score, probs = 0.999)  
-high_iso
-
-testing$clase_predicha_IF <- factor(ifelse(testing$anomaly_score >= high_iso, 
-                                           "Si_Fraude", "No_Fraude"))
-
-
-table(Real = testing$class, Predicha = testing$clase_predicha_IF) %>%
-  addmargins
+## 
