@@ -13,49 +13,44 @@ p_load(tictoc, tidyverse, data.table, outliers, caret,
        caTools, pROC)
 
 
-## Paso 1. Base de datos ----
+## 1. Base de datos ----
 ## Importamos la base de datos de github
 
 url <- "https://raw.githubusercontent.com/ChristianChiroqueR/banco_de_datos/main/PaySim.csv"
-data <- read_csv(url) 
-View(data)
+base <- read_csv(url) 
+View(base)
 
-## Visualizacion
+## Variable objetivo "class"
+addmargins(table(base$class))
 
-# graph1 <- prcomp(x=data[3, 4],scale=TRUE, center=TRUE)
-# 
-# tic()
-# plot(pc$x[,1], pc$x[,2])
-# toc()
+round(prop.table(table(base$class)) * 100, 2)
+
+## El 99.87% (99874 registros) de los registros no son fraudulentas; mientras 
+## que el 0.13% (126 registros) son fraudulentas.
 
 
-## Paso 2. Preprocesamiento ----
-### a. Identificamos la variable target:"class" ----
 
-addmargins(table(data$class))
-round(prop.table(table(data$class)) * 100, 2)
+## 2. Preprocesamiento ----
 
-## El 0.13% de los registros son SI_FRAUDE;mientras que el 99.87% son NO_FRAUDE.
+### a. Division en data de entrenamiento y data de testeo ----
 
-### b. Division en data de entrenamiento y data de testeo ----
-
-set.seed(10000) 
+set.seed(1000) 
 
 # Creamos una data teniendo en cuenta la variable class.
 
-index         <- createDataPartition(data$class, 
+index         <- createDataPartition(base$class, 
                                      p = 0.8, 
                                      list = FALSE)
 head(index)
-train   <- data[ index, ]  # 80001 registros
+train   <- base[ index, ]  # 80001 registros
 View(train)
-testing <- data[-index, ]  # 19999  registros
+testing <- base[-index, ]  # 19999  registros
 View(testing)
 # Varia las frecuencias
 
 # Los datos originales
-table(data$class)
-round(prop.table(table(data$class)) * 100, 2)
+table(base$class)
+round(prop.table(table(base$class)) * 100, 2)
 
 # Los datos de entrenamiento
 table(train$class)
@@ -109,4 +104,5 @@ toc()
 
 
 ## Paso 6. Comparación con regresión logística ----
+
 
