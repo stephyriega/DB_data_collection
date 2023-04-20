@@ -1,4 +1,4 @@
-# Dashboard for audit and more
+# Dashboard for data quality
 This is a dashboard I created for a proyect while working at IPA Peru. I used Shinny, a R to keep track of the indicators we created to measure the data's quality through the data collection.
 
 Also, a big shoutout to Gerardo Requena, my RA at that time. His comments provided a hepful insight to the construction of this dashboard.
