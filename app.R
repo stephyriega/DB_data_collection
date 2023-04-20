@@ -28,8 +28,12 @@ library(tidyr)
 #NOTA: CAMBIAR "Stwphy" por nombre de usuario
 #setwd("C:\\Users\\Stephy\\Box\\El Salvador growth mindset\\07_Questionnaires&Data\\Endline_Quant\\02_DataCollection\\02 Quality control plan\\05_data\\02_survey\\Endline ES\\dta\\Supervision")
 
+setwd("C:\\Users\\DELL\\Documents\\GitHub\\DB_Audit\\")
+
+
+
 all_data <- import("Audit_Form_MG_prep.xlsx")  
-all_data2 <- import("Audit_Form_MG_prep_ot.xlsx")  
+all_data2 <- import("Audit_Form_MG_prep_o.xlsx")  
 
 #convertinos el ano y mes en formato "yearmon"
 
