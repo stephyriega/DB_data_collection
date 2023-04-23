@@ -25,23 +25,23 @@ library(tidyr)
 
 #importamos datos sobre la supervision
 
-#NOTA: CAMBIAR "Stwphy" por nombre de usuario
+#NOTA: CAMBIAR "Stwphy" nombre de usuario
 #setwd("C:\\Users\\Stephy\\Box\\El Salvador growth mindset\\07_Questionnaires&Data\\Endline_Quant\\02_DataCollection\\02 Quality control plan\\05_data\\02_survey\\Endline ES\\dta\\Supervision")
 
 setwd("C:\\Users\\DELL\\Documents\\GitHub\\DB_Audit\\")
 
 
 
-all_data <- import("Audit_Form_MG_prep.xlsx")  
-all_data2 <- import("Audit_Form_MG_prep_o.xlsx")  
+all_data <- import("survey.xlsx")  
+all_data2 <- import("surveyor.xlsx")  
 
 #convertinos el ano y mes en formato "yearmon"
 
 all_data$FECHA <-substr(all_data$date_sup, 6, 11)
 all_data2$FECHA <-substr(all_data2$date_sup, 6, 11)
 
-#General: Cantidad y duracion de audios
-##Hallamos la cantidad de encuestados por auditor, dia, municipio, grupo de edad, equipo y grupo
+#General: Quantity y duracion de audios
+##Hallamos la Quantity de encuestados auditor, dia, Town, Group de edad, Team y Group
 all_data_1 <- all_data %>% 
   group_by(auditor, FECHA, town_bl, g_age, teams, treatment ) %>%
   dplyr::summarize(n = n(), duration_min = mean(duration_min) ) 
@@ -116,7 +116,7 @@ all_data_12$ymd <- as.Date(as.character(all_data_12$FECHA), "%m-%d")
 all_data_12$FECHA_ <- as.Date(all_data_12$ymd)
 
 #Audios
-#Hallamos los indicadores por auditor, dia, municipio, grupo de edad, equipo y grupo
+#Hallamos los indicadores auditor, dia, Town, Group de edad, Team y Group
 
 all_data_2 <- all_data %>%
   group_by(auditor, FECHA, town_bl, g_age, teams, treatment, audio, quality, var_a) %>%
@@ -172,7 +172,7 @@ all_data_2e$FECHA_ <- as.Date(all_data_2e$ymd)
 
 
 #Encuestador
-#Hallamos los indicadores por auditor, dia, municipio, grupo de edad, equipo y grupo
+#Hallamos los indicadores auditor, dia, Town, Group de edad, Team y Group
 
 all_data_4 <- all_data %>%
   group_by(auditor, FECHA, town_bl, g_age, teams, treatment, p_cons_cg, p_cons_cg_n ) %>%
@@ -228,8 +228,8 @@ all_data_4e$FECHA_ <- as.Date(all_data_4e$ymd)
 
 
 
-#Grupo2b
-#Hallamos los indicadores por auditor, dia, municipio, grupo de edad, equipo y grupo
+#Group2b
+#Hallamos los indicadores auditor, dia, Town, Group de edad, Team y Group
 
 all_data_5 <- all_data %>%
   group_by(auditor, FECHA, town_bl, g_age, teams, treatment, var_0, var_0_n ) %>%
@@ -285,7 +285,7 @@ all_data_5e$ymd <- as.Date(as.character(all_data_5e$FECHA), "%m-%d")
 all_data_5e$FECHA_ <- as.Date(all_data_5e$ymd)
 
 
-#Grupo4
+#Group4
 all_data_6 <- all_data %>%
   group_by(auditor, FECHA, town_bl, g_age, teams, treatment, var_b, var_p ) %>%
   dplyr::summarize(n())
@@ -338,7 +338,7 @@ all_data_6e <- as.data.frame(all_data_6e)
 all_data_6e$ymd <- as.Date(as.character(all_data_6e$FECHA), "%m-%d")
 all_data_6e$FECHA_ <- as.Date(all_data_6e$ymd)
 
-#Grupo4
+#Group4
 all_data_13 <- all_data %>%
   group_by(auditor, FECHA, town_bl, g_age, teams, treatment, trans, sim ) %>%
   dplyr::summarize(n())
@@ -401,7 +401,7 @@ colnames(all_data_14) <- c("ENCUESTADOR", "FECHA", "CON", "LENG", "U_AD", "U_N",
 all_data_14$ymd <- as.Date(as.character(all_data_14$FECHA), "%m-%d")
 all_data_14$FECHA_ <- as.Date(all_data_14$ymd)
 
-# #Grupo4
+# #Group4
 # all_data_13 <- all_data %>%
 #   group_by(auditor, FECHA, town_bl, g_age, teams, treatment, trans, sim ) %>%
 #   dplyr::summarize(n())
@@ -417,7 +417,7 @@ all_data_14$FECHA_ <- as.Date(all_data_14$ymd)
 #AUD_M = mean(AUD, na.rm=TRUE)
 
 #Datos
-##Hallamos los indicadores por auditor, dia, municipio, grupo de edad, equipo y grupo
+##Hallamos los indicadores auditor, dia, Town, Group de edad, Team y Group
 # nb.cols <- 11
 # myGreens <- colorRampPalette(brewer.pal(8, "Greens"))(nb.cols)
 # 
@@ -434,7 +434,7 @@ CV <- function(x){
 
 ui <- fluidPage(
   #theme=shinytheme("cosmo"),
-  titlePanel ( "Empodera tu mente en familia: Indicadores de auditoria"),
+  titlePanel ( "Dashboard for data collection"),
   
   sidebarLayout(
     
@@ -443,57 +443,57 @@ ui <- fluidPage(
       #Seleccion: fecha   
       sliderInput(
         inputId = "date_input",
-        label="Rango de fecha",
-        min=as.Date("2022-03-18","%Y-%m-%d"),
-        max=as.Date("2022-06-22","%Y-%m-%d"),
-        value=c(as.Date("2022-03-18"), as.Date("2022-06-10")),
+        label="Dates",
+        min=as.Date("2023-03-18","%Y-%m-%d"),
+        max=as.Date("2023-06-22","%Y-%m-%d"),
+        value=c(as.Date("2023-03-18"), as.Date("2023-06-22")),
         timeFormat = "%F"
       ),
       style = "background-color:#c3df9d;",
       
-      selectInput(inputId="dep_button",label="Elige el nivel:",choices=c("Serie de tiempo", "Corte transversal"),multiple=FALSE
+      selectInput(inputId="dep_button",label="Choose level:",choices=c("Time Series", "Cross Section"),multiple=FALSE
       ),
       
       conditionalPanel(
-        condition = "input.dep_button == 'Corte transversal'",
+        condition = "input.dep_button == 'Cross Section'",
         
       
-      #Seleccion:  municipio
+      #Seleccion:  Town
       checkboxGroupInput(
-        inputId="municipio_input",
-        label="Municipios",
+        inputId="town_input",
+        label="Town",
         choices=unique(all_data$town_bl),
         selected=unique(all_data$town_bl),
         inline = FALSE
       ),
-      #Seleccion:  grupo tratamiento
+      #Seleccion:  Treatment group
       checkboxGroupInput(
-        inputId="grupo_input",
-        label="Grupo",
+        inputId="group_input",
+        label="Group",
         choices=unique(all_data$treatment),
         selected=unique(all_data$treatment),
         inline=FALSE
       ),
-      #Seleccion:  grupo etario
+      #Seleccion:  Age group
       checkboxGroupInput(
-        inputId="edad_input",
-        label="Grupo etario de ninos",
+        inputId="age_input",
+        label="Age group de ninos",
         choices=unique(all_data$g_age),
         selected=unique(all_data$g_age)
       ),
       #Seleccion: teams
       checkboxGroupInput(
         inputId="teams_input",
-        label="Equipo",
+        label="Team",
         choices=unique(all_data$teams),
         selected=unique(all_data$teams)
       ),
-      #prox: seleccion de encuestador condicionado a seleccion de equipo
+      #prox: seleccion de encuestador condicionado a seleccion de Team
       style = "background-color:#c3df9d;"
     ),
     
     conditionalPanel(
-      condition = "input.dep_button == 'Serie de tiempo'"
+      condition = "input.dep_button == 'Time Series'"
     )
       
     ),
@@ -501,32 +501,30 @@ ui <- fluidPage(
     mainPanel(
       width=10,
       tabsetPanel(
-        #General: cantidad y minutos
+        #General: Quantity y Minutes
         tabPanel("General",
                  br(),
                  
-                 p("Indicadores de cantidad y tiempo de las auditorias realizadas.", 
+                 p("Quantity and Time", 
                    style="text-align:justify;color:black"
                  ),
                  
                  conditionalPanel(
-                   condition = "input.dep_button == 'Serie de tiempo'",
+                   condition = "input.dep_button == 'Time Series'",
                   
-                   p("Filtro de rango de fecha permitido", 
+                   p("Dates filter allowed", 
                      style="text-align:justify;color:black"
                    ),
                    
-                 p("Informacion general", 
+                 p("General Information", 
                    style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                  ),
                  fluidRow(12,
                           column(6,plotOutput('plot1')),
                           column(6,plotOutput('plot2'))
-                          #prox: graficos individuales condicionado a la seleccion y que se muestre el acumulado en parte superior 
-                          #prox: medias moviles por dias
                  ),
                  
-                 selectInput(inputId="dep_button1",label="Elige el nivel:",choices=c("Supervisor", "Municipio", "Grupo tratamiento", "Grupo etario", "Equipo"),multiple=FALSE
+                 selectInput(inputId="dep_button1",label="Choose level:",choices=c("Supervisor", "Town", "Treatment group", "Age group", "Team"),multiple=FALSE
                  ),
                  
                  conditionalPanel(
@@ -535,7 +533,7 @@ ui <- fluidPage(
                    condition = "input.dep_button1 == 'Supervisor'",
                    
                    
-                 p("Por supervisor/a", 
+                 p("Supervisor", 
                    style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                  ),
                  
@@ -548,10 +546,10 @@ ui <- fluidPage(
                  conditionalPanel(
                    
                    
-                   condition = "input.dep_button1 == 'Municipio'",
+                   condition = "input.dep_button1 == 'Town'",
                    
                  
-                 p("Por Municipio", 
+                 p("Town", 
                    style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                  ),
                  
@@ -564,10 +562,10 @@ ui <- fluidPage(
                 conditionalPanel(
                   
                   
-                  condition = "input.dep_button1 == 'Grupo tratamiento'",
+                  condition = "input.dep_button1 == 'Treatment group'",
                   
                  
-                 p("Por Grupo", 
+                 p("Group", 
                    style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                  ),
                  
@@ -580,9 +578,9 @@ ui <- fluidPage(
                 conditionalPanel(
                   
                   
-                  condition = "input.dep_button1 == 'Grupo etario'",
+                  condition = "input.dep_button1 == 'Age group'",
                  
-                 p("Por Grupo etario", 
+                 p("Age group", 
                    style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                  ),
                  
@@ -595,11 +593,11 @@ ui <- fluidPage(
                 conditionalPanel(
                   
                   
-                  condition = "input.dep_button1 == 'Equipo'",
+                  condition = "input.dep_button1 == 'Team'",
                   
                 
                  
-                 p("Por Equipo", 
+                 p("Team", 
                    style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                  ),
                  
@@ -613,13 +611,13 @@ ui <- fluidPage(
                  conditionalPanel(
                    
                    
-                   condition = "input.dep_button == 'Corte transversal'",
+                   condition = "input.dep_button == 'Cross Section'",
                    
-                   p("Todos los filtros permitidos", 
+                   p("All filters allowed", 
                      style="text-align:justify;color:black"
                    ),
                    
-                   p("Informacion general", 
+                   p("General Information", 
                      style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                    ),
                    
@@ -637,20 +635,20 @@ ui <- fluidPage(
                  
         ),
         
-        #Audio: audios completos, calidad final y calidad por modulos
+        #Audio: audios completos, calidad final y calidad modulos
         tabPanel("Audio",
                  br(),
                  
-                 p("Indicadores de calidad del audio: Existencia del audio, reporte de la calidad inicial y reporte final de la calidad", 
+                 p("Indicators of quantity and quality of audio recording", 
                    style="text-align:justify;color:black"
                  ),
                 
                  
                 conditionalPanel(
                    
-                   condition = "input.dep_button == 'Serie de tiempo'",
+                   condition = "input.dep_button == 'Time Series'",
                    
-                   p("Informacion general", 
+                   p("General Information", 
                      style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                    ),
                    fluidRow(12,
@@ -659,17 +657,17 @@ ui <- fluidPage(
                             column(4,plotOutput('plot38'))
                    ),
                    
-                   selectInput(inputId="dep_button2",label="Elige el nivel:",choices=c("Municipio", "Grupo tratamiento", "Grupo etario", "Equipo"),multiple=FALSE
+                   selectInput(inputId="dep_button2",label="Choose level:",choices=c("Town", "Treatment group", "Age group", "Team"),multiple=FALSE
                    ),
                    
                    conditionalPanel(
                      
                      
-                     condition = "input.dep_button2 == 'Municipio'",
+                     condition = "input.dep_button2 == 'Town'",
                      
                    
                    
-                   p("Por Municipio", 
+                   p("Town", 
                      style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                    ),
                    
@@ -683,9 +681,9 @@ ui <- fluidPage(
                    conditionalPanel(
                      
                      
-                     condition = "input.dep_button2 == 'Grupo tratamiento'",
+                     condition = "input.dep_button2 == 'Treatment group'",
                    
-                   p("Por Grupo", 
+                   p("Group", 
                      style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                    ),
                    
@@ -699,9 +697,9 @@ ui <- fluidPage(
                    conditionalPanel(
                      
                      
-                     condition = "input.dep_button2 == 'Grupo etario'",
+                     condition = "input.dep_button2 == 'Age group'",
                    
-                   p("Por Grupo etario", 
+                   p("Age group", 
                      style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                    ),
                    
@@ -715,10 +713,10 @@ ui <- fluidPage(
                    conditionalPanel(
                      
                      
-                     condition = "input.dep_button2 == 'Equipo'",
+                     condition = "input.dep_button2 == 'Team'",
                      
                    
-                   p("Por Equipo", 
+                   p("Team", 
                      style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                    ),
                    
@@ -732,9 +730,9 @@ ui <- fluidPage(
                 
                 conditionalPanel(
                   
-                  condition = "input.dep_button == 'Corte transversal'",
+                  condition = "input.dep_button == 'Cross Section'",
                   
-                  p("Todos los filtros permitidos", 
+                  p("All filters allowed", 
                     style="text-align:justify;color:black"
                   ),
                   
@@ -757,20 +755,20 @@ ui <- fluidPage(
         
         #Encuestador: Consentimiento, uso de material e indicaciones y revision al final
         
-        tabPanel("Encuestador",
+        tabPanel("Surveyor",
                  br(),
                  
                  
-                 p("Indicadores de calidad del encuestador: su perfomance en el consentimiento, en la explicacion del uso de materiales e indicaciones y la revision final", 
+                 p("Indicators of surveyor quality: performance in consent, explanation of the use of materials and indications and final review", 
                    style="text-align:justify;color:black"
                  ),
                  
                  conditionalPanel(
                    
-                   condition = "input.dep_button == 'Serie de tiempo'",
+                   condition = "input.dep_button == 'Time Series'",
                    
                    
-                   p("Informacion general", 
+                   p("General Information", 
                      style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                    ),
                    fluidRow(12,
@@ -782,17 +780,17 @@ ui <- fluidPage(
                             column(4,plotOutput('plot44'))
                    ),
                    
-                   selectInput(inputId="dep_button3",label="Elige el nivel:",choices=c("Municipio", "Grupo tratamiento", "Grupo etario", "Equipo"),multiple=FALSE
+                   selectInput(inputId="dep_button3",label="Choose level:",choices=c("Town", "Treatment group", "Age group", "Team"),multiple=FALSE
                    ),
                    
                    conditionalPanel(
                      
                      
-                     condition = "input.dep_button3 == 'Municipio'",
+                     condition = "input.dep_button3 == 'Town'",
                    
                    
                    
-                   p("Por Municipio", 
+                   p("Town", 
                      style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                    ),
                    
@@ -809,11 +807,11 @@ ui <- fluidPage(
                    conditionalPanel(
                      
                      
-                     condition = "input.dep_button3 == 'Grupo tratamiento'",
+                     condition = "input.dep_button3 == 'Treatment group'",
                    
                    
                    
-                   p("Por Grupo", 
+                   p("Group", 
                      style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                    ),
                    
@@ -830,11 +828,11 @@ ui <- fluidPage(
                    conditionalPanel(
                      
                      
-                     condition = "input.dep_button3 == 'Grupo etario'",
+                     condition = "input.dep_button3 == 'Age group'",
                    
                    
                    
-                   p("Por Grupo etario", 
+                   p("Age group", 
                      style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                    ),
                    
@@ -851,9 +849,9 @@ ui <- fluidPage(
                    conditionalPanel(
                      
                      
-                     condition = "input.dep_button3 == 'Equipo'",
+                     condition = "input.dep_button3 == 'Team'",
                    
-                   p("Por Equipo", 
+                   p("Team", 
                      style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                    ),
                    
@@ -870,10 +868,10 @@ ui <- fluidPage(
                  
                  conditionalPanel(
                    
-                   condition = "input.dep_button == 'Corte transversal'",
+                   condition = "input.dep_button == 'Cross Section'",
                    
                    
-                 p("Consentimiento", 
+                 p("Consent", 
                    style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                  ),
                  fluidRow(12,
@@ -886,7 +884,7 @@ ui <- fluidPage(
                           column(2,)
                  ),
                  br(),
-                 p("Uso de material e indicaciones", 
+                 p("Use of materials and guidelines", 
                    style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                  ),
                  fluidRow(12,
@@ -899,7 +897,7 @@ ui <- fluidPage(
                           column(2,)
                  ),
                  br(),
-                 p("RevisiÃÂÃÂ³n al finalizar", 
+                 p("Final revision", 
                    style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                  ),
                  fluidRow(12,
@@ -913,39 +911,39 @@ ui <- fluidPage(
                  )
                  )
         ),
-        tabPanel("Datos lenguaje",
+        tabPanel("Open answers",
                  
                  br(),
                  
-                 p("Indicadores de calidad de respuestas abiertas: Calidad de la transcripcion y similitud en clasificacion con auditora", 
+                 p("Quality of transcription and similarity to the classification of answers", 
                    style="text-align:justify;color:black"
                  ),
                 
                  
                  conditionalPanel(
-                   condition = "input.dep_button == 'Serie de tiempo'",
+                   condition = "input.dep_button == 'Time Series'",
                    
-                   p("Respuestas abiertas", 
+                   p("Open answers", 
                      style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                    ),
                    fluidRow(12,
                             column(6,plotOutput('plot69')),
                             column(6,plotOutput('plot70'))
                             #prox: graficos individuales condicionado a la seleccion y que se muestre el acumulado en parte superior 
-                            #prox: medias moviles por dias
+                            #prox: medias moviles dias
                    ),
                    
 
-                   selectInput(inputId="dep_button4",label="Elige el nivel:",choices=c("Municipio", "Grupo tratamiento", "Grupo etario", "Equipo"),multiple=FALSE
+                   selectInput(inputId="dep_button4",label="Choose level:",choices=c("Town", "Treatment group", "Age group", "Team"),multiple=FALSE
                    ),
                    
                    conditionalPanel(
                      
                      
-                     condition = "input.dep_button4 == 'Municipio'",
+                     condition = "input.dep_button4 == 'Town'",
                      
                      
-                     p("Por Municipio", 
+                     p("Town", 
                        style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                      ),
                      
@@ -958,10 +956,10 @@ ui <- fluidPage(
                    conditionalPanel(
                      
                      
-                     condition = "input.dep_button4 == 'Grupo tratamiento'",
+                     condition = "input.dep_button4 == 'Treatment group'",
                      
                      
-                     p("Por Grupo", 
+                     p("Group", 
                        style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                      ),
                      
@@ -974,9 +972,9 @@ ui <- fluidPage(
                    conditionalPanel(
                      
                     
-                     condition = "input.dep_button4 == 'Grupo etario'",
+                     condition = "input.dep_button4 == 'Age group'",
                      
-                     p("Por Grupo etario", 
+                     p("Age group", 
                        style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                      ),
                      
@@ -989,10 +987,10 @@ ui <- fluidPage(
                    conditionalPanel(
                      
                      
-                     condition = "input.dep_button4 == 'Equipo'",
+                     condition = "input.dep_button4 == 'Team'",
                      
                      
-                     p("Por Equipo", 
+                     p("Team", 
                        style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                      ),
                      
@@ -1006,9 +1004,9 @@ ui <- fluidPage(
                  conditionalPanel(
                    
                    
-                   condition = "input.dep_button == 'Corte transversal'",
+                   condition = "input.dep_button == 'Cross Section'",
                    
-                   p("Respuestas abiertas", 
+                   p("Open answers", 
                      style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                    ),
                    
@@ -1028,28 +1026,28 @@ ui <- fluidPage(
                  
                  br(),
                  
-                 p("Ranking de encuestadoras por indicadores: resumen, consentimiento,datos de lenguaje, uso de materiales e indicaciones en adultos, en niños, y revision de preguntas (en orden).", 
+                 p("Ranking of surveyors: summary, consent, open answer data, use of materials and guidelines, and review of questions (in order). ", 
                    style="text-align:justify;color:black"
                  ),
                  
                  
                  conditionalPanel(
-                   condition = "input.dep_button == 'Serie de tiempo'",
+                   condition = "input.dep_button == 'Time Series'",
 
                    fluidRow(12,
                             column(2,),
                             column(8,tableOutput('table7')),
                             column(2,)
                             #prox: graficos individuales condicionado a la seleccion y que se muestre el acumulado en parte superior 
-                            #prox: medias moviles por dias
+                            #prox: medias moviles dias
                    )
                    ),
                  
                  conditionalPanel(
                    
-                   condition = "input.dep_button == 'Corte transversal'",
+                   condition = "input.dep_button == 'Cross Section'",
                    
-                   p("Ranking de encuestadoras", 
+                   p("Ranking of surveyors", 
                      style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                    )
                  )
@@ -1075,10 +1073,10 @@ server <- function(input,output){
            aes(x=FECHA_, y=NUM))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+
-      labs(title = "Cantidad de hogares auditados",
+      labs(title = "Number of surveys",
            subtitle = "",
            caption = "",
-           x = "Fecha", y = "Cantidad",
+           x = "Date", y = "Quantity",
            tag = "#1")      
   })
   
@@ -1094,10 +1092,10 @@ server <- function(input,output){
            aes(x=FECHA_, y=DUR, label=DUR))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+
-      labs(title = "Duracion promedio de Auditoria ",
+      labs(title = "Average survey duration",
            subtitle = "",
            caption = "",
-           x = "Fecha", y = "Minutos",
+           x = "Date", y = "Minutes",
            tag = "#2")      
   })
   
@@ -1106,7 +1104,7 @@ server <- function(input,output){
     
     plot_dat3<-filter(
       all_data_2,
-      TEAM %in% input$teams_input & GAGE %in% input$edad_input & TREAT %in% input$grupo_input & MUN %in% input$municipio_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
+      TEAM %in% input$teams_input & GAGE %in% input$age_input & TREAT %in% input$group_input & MUN %in% input$town_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
     )
     
     ggplot(plot_dat3,
@@ -1115,7 +1113,7 @@ server <- function(input,output){
       coord_polar("y", start=0)+
       scale_fill_brewer(palette="Greens")+
       theme_minimal()+
-      labs(title = " Cantidad de hogares segun cantidad de audios",
+      labs(title = " Quantity de surveys by percentage of audios",
            subtitle = "",
            caption = "",
            x = "", y = "",
@@ -1126,7 +1124,7 @@ server <- function(input,output){
     
     plot_dat4<-filter(
       all_data_2,
-      TEAM %in% input$teams_input & GAGE %in% input$edad_input & TREAT %in% input$grupo_input & MUN %in% input$municipio_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
+      TEAM %in% input$teams_input & GAGE %in% input$age_input & TREAT %in% input$group_input & MUN %in% input$town_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
     )
     
     ggplot(plot_dat4,
@@ -1135,7 +1133,7 @@ server <- function(input,output){
       coord_polar("y", start=0)+
       scale_fill_brewer(palette="Greens")+
       theme_minimal()+
-      labs(title = "Cantidad de hogares segun calidad promedio",
+      labs(title = "Quantity of surveys by quality",
            subtitle = "",
            caption = "",
            x = "", y = "",
@@ -1146,7 +1144,7 @@ server <- function(input,output){
     
     plot_dat5<-filter(
       all_data_2,
-      TEAM %in% input$teams_input & GAGE %in% input$edad_input & TREAT %in% input$grupo_input & MUN %in% input$municipio_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
+      TEAM %in% input$teams_input & GAGE %in% input$age_input & TREAT %in% input$group_input & MUN %in% input$town_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
     )
     
     ggplot(plot_dat5,
@@ -1155,7 +1153,7 @@ server <- function(input,output){
       coord_polar("y", start=0)+
       scale_fill_brewer(palette="Greens")+
       theme_minimal()+
-      labs(title = "Cantidad de hogares segun calidad promedio",
+      labs(title = "Quantity de hogares segun calidad promedio",
            subtitle = "",
            caption = "",
            x = "", y = "",
@@ -1173,10 +1171,10 @@ server <- function(input,output){
            aes(x=FECHA_, y=NUM, color=AUDITOR, label=NUM))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+
-      labs(title = "Cantidad de hogares auditados",
+      labs(title = "Quantity de hogares auditados",
            subtitle = "",
            caption = "",
-           x = "Fecha", y = "Cantidad",
+           x = "Date", y = "Quantity",
            tag = "#6")      
   })
   
@@ -1191,10 +1189,10 @@ server <- function(input,output){
            aes(x=FECHA_, y=DUR, color=AUDITOR, label=DUR))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+
-      labs(title = "Duracion promedio de Auditoria ",
+      labs(title = "Average survey duration",
            subtitle = "",
            caption = "",
-           x = "Fecha", y = "Minutos",
+           x = "Date", y = "Minutes",
            tag = "#7")      
   })
   
@@ -1202,7 +1200,7 @@ server <- function(input,output){
 
     plot_dat8<-filter(
       all_data_1,
-      TEAM %in% input$teams_input & GAGE %in% input$edad_input & TREAT %in% input$grupo_input & MUN %in% input$municipio_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
+      TEAM %in% input$teams_input & GAGE %in% input$age_input & TREAT %in% input$group_input & MUN %in% input$town_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
     )
 
     ggplot(plot_dat8,
@@ -1211,7 +1209,7 @@ server <- function(input,output){
       coord_polar("y", start=0)+
       scale_fill_brewer(palette="Greens")+
       theme_minimal()+
-      labs(title = "Cantidad de hogares auditados acumulados",
+      labs(title = "Quantity de hogares auditados acumulados",
            subtitle = "",
            caption = "",
            x = NULL, y = NULL,
@@ -1223,7 +1221,7 @@ server <- function(input,output){
     
     plot_dat23<-filter(
       all_data_1,
-      TEAM %in% input$teams_input & GAGE %in% input$edad_input & TREAT %in% input$grupo_input & MUN %in% input$municipio_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
+      TEAM %in% input$teams_input & GAGE %in% input$age_input & TREAT %in% input$group_input & MUN %in% input$town_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
     )
     
     ggplot(plot_dat23,
@@ -1231,7 +1229,7 @@ server <- function(input,output){
       geom_bar(stat="identity")+
       scale_fill_brewer(palette="Greens")+
       theme_minimal()+
-      labs(title = "Minutos acumulados",
+      labs(title = "Minutes acumulados",
            subtitle = "",
            caption = "",
            x = NULL, y = NULL,
@@ -1243,7 +1241,7 @@ server <- function(input,output){
     
     plot_dat9<-filter(
       all_data_4,
-      TEAM %in% input$teams_input & GAGE %in% input$edad_input & TREAT %in% input$grupo_input & MUN %in% input$municipio_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
+      TEAM %in% input$teams_input & GAGE %in% input$age_input & TREAT %in% input$group_input & MUN %in% input$town_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
     )
     
     ggplot(plot_dat9,
@@ -1263,7 +1261,7 @@ server <- function(input,output){
     
     plot_dat10<-filter(
       all_data_4,
-      TEAM %in% input$teams_input & GAGE %in% input$edad_input & TREAT %in% input$grupo_input & MUN %in% input$municipio_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
+      TEAM %in% input$teams_input & GAGE %in% input$age_input & TREAT %in% input$group_input & MUN %in% input$town_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
     )
     
     ggplot(plot_dat10,
@@ -1283,7 +1281,7 @@ server <- function(input,output){
     
     plot_dat11<-filter(
       all_data_5,
-      TEAM %in% input$teams_input & GAGE %in% input$edad_input & TREAT %in% input$grupo_input & MUN %in% input$municipio_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
+      TEAM %in% input$teams_input & GAGE %in% input$age_input & TREAT %in% input$group_input & MUN %in% input$town_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
     )
     
     ggplot(plot_dat11,
@@ -1303,7 +1301,7 @@ server <- function(input,output){
     
     plot_dat12<-filter(
       all_data_5,
-      TEAM %in% input$teams_input & GAGE %in% input$edad_input & TREAT %in% input$grupo_input & MUN %in% input$municipio_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
+      TEAM %in% input$teams_input & GAGE %in% input$age_input & TREAT %in% input$group_input & MUN %in% input$town_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
     )
     
     ggplot(plot_dat12,
@@ -1323,7 +1321,7 @@ server <- function(input,output){
     
     plot_dat13<-filter(
       all_data_6,
-      TEAM %in% input$teams_input & GAGE %in% input$edad_input & TREAT %in% input$grupo_input & MUN %in% input$municipio_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
+      TEAM %in% input$teams_input & GAGE %in% input$age_input & TREAT %in% input$group_input & MUN %in% input$town_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
     )
     
     ggplot(plot_dat13,
@@ -1344,7 +1342,7 @@ server <- function(input,output){
     
     plot_dat14<-filter(
       all_data_6,
-      TEAM %in% input$teams_input & GAGE %in% input$edad_input & TREAT %in% input$grupo_input & MUN %in% input$municipio_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
+      TEAM %in% input$teams_input & GAGE %in% input$age_input & TREAT %in% input$group_input & MUN %in% input$town_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
     )
     
     ggplot(plot_dat14,
@@ -1371,10 +1369,10 @@ server <- function(input,output){
            aes(x=FECHA_, y=NUM, color=MUN, label=NUM))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+
-      labs(title = "Cantidad de hogares auditados",
+      labs(title = "Quantity de hogares auditados",
            subtitle = "",
            caption = "",
-           x = "Fecha", y = "Cantidad",
+           x = "Date", y = "Quantity",
            tag = "#15")      
   })
   
@@ -1389,10 +1387,10 @@ server <- function(input,output){
            aes(x=FECHA_, y=DUR, color=MUN, label=DUR))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+
-      labs(title = "Cantidad de hogares auditados",
+      labs(title = "Quantity de hogares auditados",
            subtitle = "",
            caption = "",
-           x = "Fecha", y = "Minutos",
+           x = "Date", y = "Minutes",
            tag = "#16")
   })
   
@@ -1407,10 +1405,10 @@ server <- function(input,output){
            aes(x=FECHA_, y=NUM, color=TREAT, label=NUM))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+
-      labs(title = "Cantidad de hogares auditados",
+      labs(title = "Quantity de hogares auditados",
            subtitle = "",
            caption = "",
-           x = "Fecha", y = "Cantidad",
+           x = "Date", y = "Quantity",
            tag = "#17")      
   })
   
@@ -1425,10 +1423,10 @@ server <- function(input,output){
            aes(x=FECHA_, y=DUR, color=TREAT, label=DUR))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+
-      labs(title = "Cantidad de hogares auditados",
+      labs(title = "Quantity de hogares auditados",
            subtitle = "",
            caption = "",
-           x = "Fecha", y = "Minutos",
+           x = "Date", y = "Minutes",
            tag = "#18")
   })
   
@@ -1443,10 +1441,10 @@ server <- function(input,output){
            aes(x=FECHA_, y=NUM, color=GAGE, label=NUM))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+
-      labs(title = "Cantidad de hogares auditados",
+      labs(title = "Quantity de hogares auditados",
            subtitle = "",
            caption = "",
-           x = "Fecha", y = "Cantidad",
+           x = "Date", y = "Quantity",
            tag = "#19")      
   })
   
@@ -1461,10 +1459,10 @@ server <- function(input,output){
            aes(x=FECHA_, y=DUR, color=GAGE, label=DUR))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+
-      labs(title = "Cantidad de hogares auditados",
+      labs(title = "Quantity de hogares auditados",
            subtitle = "",
            caption = "",
-           x = "Fecha", y = "Minutos",
+           x = "Date", y = "Minutes",
            tag = "#20")
   })
   
@@ -1479,10 +1477,10 @@ server <- function(input,output){
            aes(x=FECHA_, y=NUM, color=TEAM, label=NUM))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+
-      labs(title = "Cantidad de hogares auditados",
+      labs(title = "Quantity de hogares auditados",
            subtitle = "",
            caption = "",
-           x = "Fecha", y = "Cantidad",
+           x = "Date", y = "Quantity",
            tag = "#21")      
   })
   
@@ -1497,10 +1495,10 @@ server <- function(input,output){
            aes(x=FECHA_, y=DUR, color=TEAM, label=DUR))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+
-      labs(title = "Cantidad de hogares auditados",
+      labs(title = "Quantity de hogares auditados",
            subtitle = "",
            caption = "",
-           x = "Fecha", y = "Minutos",
+           x = "Date", y = "Minutes",
            tag = "#22")
   })
   
@@ -1518,7 +1516,7 @@ server <- function(input,output){
       labs(title="Existencia de audios ",
            subtitle = "",
            caption = "",
-           x = "Fecha", y = "Promedios",
+           x = "Date", y = "Promedios",
            tag = "#36")
   })
   
@@ -1535,7 +1533,7 @@ server <- function(input,output){
       labs(title= "Calidad inicial de los audios existentes ",
            subtitle = "",
            caption = "",
-           x = "Fecha", y = "Promedios",
+           x = "Date", y = "Promedios",
            tag = "#37")
   })
   
@@ -1552,7 +1550,7 @@ server <- function(input,output){
       labs(title= "Calidad final de los audios existentes ",
            subtitle = "",
            caption = "",
-           x = "Fecha", y = "Promedios",
+           x = "Date", y = "Promedios",
            tag = "#38")
   })
   
@@ -1570,7 +1568,7 @@ server <- function(input,output){
       labs(title="Existencia de audios ",
            subtitle = "",
            caption = "",
-           x = "Fecha", y = "Promedios",
+           x = "Date", y = "Promedios",
            tag = "#24")
   })
   
@@ -1587,7 +1585,7 @@ server <- function(input,output){
       labs(title= "Calidad inicial de los audios existentes ",
            subtitle = "",
            caption = "",
-           x = "Fecha", y = "Promedios",
+           x = "Date", y = "Promedios",
            tag = "#25")
   })
   
@@ -1604,7 +1602,7 @@ server <- function(input,output){
       labs(title= "Calidad final de los audios existentes ",
            subtitle = "", 
            caption = "",
-           x = "Fecha", y = "Promedios",
+           x = "Date", y = "Promedios",
            tag = "#26")
   })  
 
@@ -1622,7 +1620,7 @@ server <- function(input,output){
       labs(title="Existencia de audios ",
            subtitle = "",
            caption = "",
-           x = "Fecha", y = "Promedios",
+           x = "Date", y = "Promedios",
            tag = "#27")
   })
   
@@ -1639,7 +1637,7 @@ server <- function(input,output){
       labs(title= "Calidad inicial de los audios existentes ",
            subtitle = "",
            caption = "",
-           x = "Fecha", y = "Promedios",
+           x = "Date", y = "Promedios",
            tag = "#28")
   })
   
@@ -1656,7 +1654,7 @@ server <- function(input,output){
       labs(title= "Calidad final de los audios existentes ",
            subtitle = "", 
            caption = "",
-           x = "Fecha", y = "Promedios",
+           x = "Date", y = "Promedios",
            tag = "#29")
   })  
   
@@ -1674,7 +1672,7 @@ server <- function(input,output){
       labs(title="Existencia de audios ",
            subtitle = "",
            caption = "",
-           x = "Fecha", y = "Promedios",
+           x = "Date", y = "Promedios",
            tag = "#30")
   })
   
@@ -1691,7 +1689,7 @@ server <- function(input,output){
       labs(title= "Calidad inicial de los audios existentes ",
            subtitle = "",
            caption = "",
-           x = "Fecha", y = "Promedios",
+           x = "Date", y = "Promedios",
            tag = "#31")
   })
   
@@ -1708,7 +1706,7 @@ server <- function(input,output){
       labs(title= "Calidad final de los audios existentes ",
            subtitle = "", 
            caption = "",
-           x = "Fecha", y = "Promedios",
+           x = "Date", y = "Promedios",
            tag = "#32")
   })  
   
@@ -1727,7 +1725,7 @@ server <- function(input,output){
       labs(title="Existencia de audios ",
            subtitle = "",
            caption = "",
-           x = "Fecha", y = "Promedios",
+           x = "Date", y = "Promedios",
            tag = "#33")
   })
   
@@ -1744,7 +1742,7 @@ server <- function(input,output){
       labs(title= "Calidad inicial de los audios existentes ",
            subtitle = "",
            caption = "",
-           x = "Fecha", y = "Promedios",
+           x = "Date", y = "Promedios",
            tag = "#34")
   })
   
@@ -1761,7 +1759,7 @@ server <- function(input,output){
       labs(title= "Calidad final de los audios existentes ",
            subtitle = "", 
            caption = "",
-           x = "Fecha", y = "Promedios",
+           x = "Date", y = "Promedios",
            tag = "#35")
   })
   
@@ -1780,7 +1778,7 @@ output$plot39 <-renderPlot({
     labs(title= "Aplicacion de CI en adultos ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag ="#39"
     )
 })
@@ -1798,7 +1796,7 @@ output$plot40 <-renderPlot({
     labs(title="Aplicacion de CI en ninos ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#40")
 })
 
@@ -1817,7 +1815,7 @@ output$plot41 <-renderPlot({
     labs(title= "Calificacion de desempeno final ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#41")
 })
 
@@ -1835,7 +1833,7 @@ output$plot44 <-renderPlot({
     labs(title= "Ejecucion de las preguntas ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#44")
 })
 
@@ -1855,7 +1853,7 @@ output$plot42 <-renderPlot({
     labs(title= "Uso de materiales e indicaciones en adultos ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#42")
 })
 
@@ -1873,7 +1871,7 @@ output$plot43 <-renderPlot({
     labs(title= "Uso de materiales e indicaciones en ninos ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#43")
 })
 
@@ -1892,7 +1890,7 @@ output$plot45 <-renderPlot({
     labs(title= "Aplicacion de CI en adultos ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag ="#45"
     )
 })
@@ -1910,7 +1908,7 @@ output$plot46 <-renderPlot({
     labs(title= "Aplicacion de CI en ninos ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#46")
 })
 
@@ -1929,7 +1927,7 @@ output$plot47 <-renderPlot({
     labs(title= "Calificacion de desempeno final ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#47")
 })
 
@@ -1947,7 +1945,7 @@ output$plot50 <-renderPlot({
     labs(title= "Ejecucion de las preguntas ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#50")
 })
 
@@ -1966,7 +1964,7 @@ output$plot48 <-renderPlot({
     labs(title= "Uso de materiales e indicaciones en adultos ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#48")
 })
 
@@ -1984,7 +1982,7 @@ output$plot49 <-renderPlot({
     labs(title= "Uso de materiales e indicaciones en ninos ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#49")
 })
 
@@ -2003,7 +2001,7 @@ output$plot51 <-renderPlot({
     labs(title= "Aplicacion de CI en adultos ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag ="#51")
 })
 
@@ -2020,7 +2018,7 @@ output$plot52 <-renderPlot({
     labs(title= "Aplicacion de CI en ninos ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#52")
 })
 
@@ -2039,7 +2037,7 @@ output$plot53 <-renderPlot({
     labs(title= "Calificacion de desempeno final ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#53")
 })
 
@@ -2057,7 +2055,7 @@ output$plot56 <-renderPlot({
     labs(title= "Ejecucion de las preguntas ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#56")
 })
 
@@ -2076,7 +2074,7 @@ output$plot54 <-renderPlot({
     labs(title= "Uso de materiales e indicaciones en adultos ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#54")
 })
 
@@ -2094,7 +2092,7 @@ output$plot55 <-renderPlot({
     labs(title= "Uso de materiales e indicaciones en ninos ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#55")
 })
 
@@ -2115,7 +2113,7 @@ output$plot57 <-renderPlot({
     labs(title= "Aplicacion de CI en adultos ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag ="#57")
 })
 
@@ -2132,7 +2130,7 @@ output$plot58 <-renderPlot({
     labs(title= "Aplicacion de CI en ninos ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#58")
 })
 
@@ -2151,7 +2149,7 @@ output$plot59 <-renderPlot({
     labs(title= "Calificacion de desempeno final ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#59")
 })
 
@@ -2169,7 +2167,7 @@ output$plot62 <-renderPlot({
     labs(title= "Ejecucion de las preguntas ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "62#62")
 })
 
@@ -2188,7 +2186,7 @@ output$plot60 <-renderPlot({
     labs(title= "Uso de materiales e indicaciones en adultos ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#60")
 })
 
@@ -2206,7 +2204,7 @@ output$plot61 <-renderPlot({
     labs(title= "Uso de materiales e indicaciones en ninos ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#61")
 })
 
@@ -2225,7 +2223,7 @@ output$plot63 <-renderPlot({
     labs(title= "Aplicacion de CI en adultos ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag ="#63")
 })
 
@@ -2242,7 +2240,7 @@ output$plot64 <-renderPlot({
     labs(title= "Aplicacion de CI en ninos ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#64")
 })
 
@@ -2261,7 +2259,7 @@ output$plot65 <-renderPlot({
     labs(title= "Calificacion de desempeno final ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#65")
 })
 
@@ -2279,7 +2277,7 @@ output$plot68 <-renderPlot({
     labs(title= "Ejecucion de las preguntas ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#68")
 })
 
@@ -2298,7 +2296,7 @@ output$plot66 <-renderPlot({
     labs(title= "Uso de materiales e indicaciones en adultos ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#66")
 })
 
@@ -2316,7 +2314,7 @@ output$plot67 <-renderPlot({
     labs(title= "Uso de materiales e indicaciones en ninos ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#67")
 })
 
@@ -2336,7 +2334,7 @@ output$plot69 <-renderPlot({
     labs(title="Transcripcion correcta",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#69")
 })
 
@@ -2353,7 +2351,7 @@ output$plot70 <-renderPlot({
     labs(title= "Similitud de clasificacion ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#70")
 })
 
@@ -2372,7 +2370,7 @@ output$plot73 <-renderPlot({
     labs(title="Transcripcion correcta",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#73")
 })
 
@@ -2389,7 +2387,7 @@ output$plot74 <-renderPlot({
     labs(title= "Similitud de clasificacion ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#74")
 })
 
@@ -2408,7 +2406,7 @@ output$plot75 <-renderPlot({
     labs(title="Transcripcion correcta",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#75")
 })
 
@@ -2425,7 +2423,7 @@ output$plot76 <-renderPlot({
     labs(title= "Similitud de clasificacion ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#76")
 })
 
@@ -2444,7 +2442,7 @@ output$plot77 <-renderPlot({
     labs(title="Transcripcion correcta",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#77")
 })
 
@@ -2461,7 +2459,7 @@ output$plot78 <-renderPlot({
     labs(title= "Similitud de clasificacion ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#78")
 })
 
@@ -2480,7 +2478,7 @@ output$plot79 <-renderPlot({
     labs(title="Transcripcion correcta",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#79")
 })
 
@@ -2497,7 +2495,7 @@ output$plot80 <-renderPlot({
     labs(title= "Similitud de clasificacion ",
          subtitle = "",
          caption = "",
-         x = "Fecha", y = "Promedios",
+         x = "Date", y = "Promedios",
          tag = "#80")
 })
 
@@ -2505,7 +2503,7 @@ output$plot81 <-renderPlot({
   
   plot_dat81<-filter(
     all_data_13,
-    TEAM %in% input$teams_input & GAGE %in% input$edad_input & TREAT %in% input$grupo_input & MUN %in% input$municipio_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
+    TEAM %in% input$teams_input & GAGE %in% input$age_input & TREAT %in% input$group_input & MUN %in% input$town_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
   )
   
   ggplot(plot_dat81,
@@ -2525,7 +2523,7 @@ output$plot82 <-renderPlot({
   
   plot_dat82<-filter(
     all_data_13,
-    TEAM %in% input$teams_input & GAGE %in% input$edad_input & TREAT %in% input$grupo_input & MUN %in% input$municipio_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
+    TEAM %in% input$teams_input & GAGE %in% input$age_input & TREAT %in% input$group_input & MUN %in% input$town_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
   )
   
   ggplot(plot_dat82,
@@ -2547,7 +2545,7 @@ output$table1 <- renderTable({
 
   table_data1<-filter(
     all_data_2,
-    TEAM %in% input$teams_input & GAGE %in% input$edad_input & TREAT %in% input$grupo_input & MUN %in% input$municipio_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
+    TEAM %in% input$teams_input & GAGE %in% input$age_input & TREAT %in% input$group_input & MUN %in% input$town_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
   )
   table_data1 <- table_data1%>%select(AUD, QF_AUD, Q_AUD)%>%
     mutate(AUD_M = mean(AUD, na.rm=TRUE), QF_AUD_M = mean(QF_AUD, na.rm=TRUE), Q_AUD_M = mean(Q_AUD, na.rm=TRUE), AUD_CV = CV(AUD), QF_AUD_CV = CV(QF_AUD),Q_AUD_CV = CV(Q_AUD) )
@@ -2559,7 +2557,7 @@ output$table1 <- renderTable({
 
     table_data2<-filter(
       all_data_4,
-      TEAM %in% input$teams_input & GAGE %in% input$edad_input & TREAT %in% input$grupo_input & MUN %in% input$municipio_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
+      TEAM %in% input$teams_input & GAGE %in% input$age_input & TREAT %in% input$group_input & MUN %in% input$town_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
     )
     table_data2 <- table_data2%>%select( CON_CG, CON_CH)%>%
       mutate(CON_CG_M = mean(CON_CG, na.rm=TRUE), CON_CH_M = mean(CON_CH, na.rm=TRUE), CON_CG_CV = CV(CON_CG), CON_CH_CV = CV(CON_CH))
@@ -2570,7 +2568,7 @@ output$table1 <- renderTable({
 
     table_data3<-filter(
       all_data_5,
-      TEAM %in% input$teams_input & GAGE %in% input$edad_input & TREAT %in% input$grupo_input & MUN %in% input$municipio_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
+      TEAM %in% input$teams_input & GAGE %in% input$age_input & TREAT %in% input$group_input & MUN %in% input$town_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
     )
     table_data3 <- table_data3%>%select( USO_CG, USO_CH)%>%
       mutate(USO_CG_M = mean(USO_CG, na.rm=TRUE), USO_CH_M = mean(USO_CH, na.rm=TRUE), USO_CG_CV = CV(USO_CG), USO_CH_CV = CV(USO_CH))
@@ -2581,7 +2579,7 @@ output$table1 <- renderTable({
 
     table_data4<-filter(
       all_data_6,
-      TEAM %in% input$teams_input & GAGE %in% input$edad_input & TREAT %in% input$grupo_input & MUN %in% input$municipio_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
+      TEAM %in% input$teams_input & GAGE %in% input$age_input & TREAT %in% input$group_input & MUN %in% input$town_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
     )
     table_data4 <- table_data4%>%select( PREG, CALF)%>%
       mutate(CALF_M = mean(CALF, na.rm=TRUE), PREG_M = mean(PREG, na.rm=TRUE), CALF_CV = CV(CALF), PREG_CV = CV(PREG))
@@ -2592,7 +2590,7 @@ output$table1 <- renderTable({
     
     table_data5<-filter(
       all_data_13,
-      TEAM %in% input$teams_input & GAGE %in% input$edad_input & TREAT %in% input$grupo_input & MUN %in% input$municipio_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
+      TEAM %in% input$teams_input & GAGE %in% input$age_input & TREAT %in% input$group_input & MUN %in% input$town_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
     )
     table_data5 <- table_data5%>%select( TRANS, SIM)%>%
       mutate(TRANS_M = mean(TRANS, na.rm=TRUE), SIM_M = mean(SIM, na.rm=TRUE), TRANS_CV = CV(TRANS), SIM_CV = CV(SIM))
@@ -2603,7 +2601,7 @@ output$table1 <- renderTable({
 
     table_data6<-filter(
       all_data_1,
-      TEAM %in% input$teams_input & GAGE %in% input$edad_input & TREAT %in% input$grupo_input & MUN %in% input$municipio_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
+      TEAM %in% input$teams_input & GAGE %in% input$age_input & TREAT %in% input$group_input & MUN %in% input$town_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
     )
     table_data6_1 <- table_data6%>%group_by(AUDITOR)%>%select(NUM, DUR)%>%
       mutate(NUM_M = sum(NUM, na.rm=TRUE), DUR_M = mean(DUR, na.rm=TRUE))
@@ -2629,7 +2627,7 @@ output$table1 <- renderTable({
     
     table_data8<-filter(
       all_data_1,
-      TEAM %in% input$teams_input & GAGE %in% input$edad_input & TREAT %in% input$grupo_input & MUN %in% input$municipio_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
+      TEAM %in% input$teams_input & GAGE %in% input$age_input & TREAT %in% input$group_input & MUN %in% input$town_input & FECHA_>=input$date_input[1] & FECHA_<=input$date_input[2]
     )
     table_data8_1 <- table_data8%>%select(NUM, DUR)%>%mutate(NUM_M = sum(NUM, na.rm=TRUE), DUR_M = mean(DUR, na.rm=TRUE))
     table_data8 <- table_data8_1%>% summarise(NUM_P = first(NUM_M), DUR_P=first(DUR_M))
