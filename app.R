@@ -1171,7 +1171,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=NUM, color=AUDITOR, label=NUM))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+
-      labs(title = "Quantity de hogares auditados",
+      labs(title = "Quantity of surveys",
            subtitle = "",
            caption = "",
            x = "Date", y = "Quantity",
@@ -1209,7 +1209,7 @@ server <- function(input,output){
       coord_polar("y", start=0)+
       scale_fill_brewer(palette="Greens")+
       theme_minimal()+
-      labs(title = "Quantity de hogares auditados acumulados",
+      labs(title = "Quantity of surveys",
            subtitle = "",
            caption = "",
            x = NULL, y = NULL,
@@ -1369,7 +1369,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=NUM, color=MUN, label=NUM))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+
-      labs(title = "Quantity de hogares auditados",
+      labs(title = "Quantity of surveys",
            subtitle = "",
            caption = "",
            x = "Date", y = "Quantity",
@@ -1387,7 +1387,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=DUR, color=MUN, label=DUR))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+
-      labs(title = "Quantity de hogares auditados",
+      labs(title = "Average survey duration",
            subtitle = "",
            caption = "",
            x = "Date", y = "Minutes",
@@ -1405,7 +1405,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=NUM, color=TREAT, label=NUM))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+
-      labs(title = "Quantity de hogares auditados",
+      labs(title = "Quantity of surveys",
            subtitle = "",
            caption = "",
            x = "Date", y = "Quantity",
@@ -1423,7 +1423,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=DUR, color=TREAT, label=DUR))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+
-      labs(title = "Quantity de hogares auditados",
+      labs(title = "Average survey duration",
            subtitle = "",
            caption = "",
            x = "Date", y = "Minutes",
@@ -1441,7 +1441,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=NUM, color=GAGE, label=NUM))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+
-      labs(title = "Quantity de hogares auditados",
+      labs(title = "Quantity of surveys",
            subtitle = "",
            caption = "",
            x = "Date", y = "Quantity",
@@ -1459,7 +1459,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=DUR, color=GAGE, label=DUR))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+
-      labs(title = "Quantity de hogares auditados",
+      labs(title = "Average survey duration",
            subtitle = "",
            caption = "",
            x = "Date", y = "Minutes",
@@ -1477,7 +1477,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=NUM, color=TEAM, label=NUM))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+
-      labs(title = "Quantity de hogares auditados",
+      labs(title = "Quantity of surveys",
            subtitle = "",
            caption = "",
            x = "Date", y = "Quantity",
@@ -1495,7 +1495,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=DUR, color=TEAM, label=DUR))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+
-      labs(title = "Quantity de hogares auditados",
+      labs(title = "Average survey duration",
            subtitle = "",
            caption = "",
            x = "Date", y = "Minutes",
@@ -1516,7 +1516,7 @@ server <- function(input,output){
       labs(title="Existencia de audios ",
            subtitle = "",
            caption = "",
-           x = "Date", y = "Promedios",
+           x = "Date", y = "Means",
            tag = "#36")
   })
   
@@ -1533,7 +1533,7 @@ server <- function(input,output){
       labs(title= "Calidad inicial de los audios existentes ",
            subtitle = "",
            caption = "",
-           x = "Date", y = "Promedios",
+           x = "Date", y = "Means",
            tag = "#37")
   })
   
@@ -1550,7 +1550,7 @@ server <- function(input,output){
       labs(title= "Calidad final de los audios existentes ",
            subtitle = "",
            caption = "",
-           x = "Date", y = "Promedios",
+           x = "Date", y = "Means",
            tag = "#38")
   })
   
@@ -1568,7 +1568,7 @@ server <- function(input,output){
       labs(title="Existencia de audios ",
            subtitle = "",
            caption = "",
-           x = "Date", y = "Promedios",
+           x = "Date", y = "Means",
            tag = "#24")
   })
   
@@ -1585,7 +1585,7 @@ server <- function(input,output){
       labs(title= "Calidad inicial de los audios existentes ",
            subtitle = "",
            caption = "",
-           x = "Date", y = "Promedios",
+           x = "Date", y = "Means",
            tag = "#25")
   })
   
@@ -1602,7 +1602,7 @@ server <- function(input,output){
       labs(title= "Calidad final de los audios existentes ",
            subtitle = "", 
            caption = "",
-           x = "Date", y = "Promedios",
+           x = "Date", y = "Means",
            tag = "#26")
   })  
 
@@ -1620,7 +1620,7 @@ server <- function(input,output){
       labs(title="Existencia de audios ",
            subtitle = "",
            caption = "",
-           x = "Date", y = "Promedios",
+           x = "Date", y = "Means",
            tag = "#27")
   })
   
@@ -1637,7 +1637,7 @@ server <- function(input,output){
       labs(title= "Calidad inicial de los audios existentes ",
            subtitle = "",
            caption = "",
-           x = "Date", y = "Promedios",
+           x = "Date", y = "Means",
            tag = "#28")
   })
   
@@ -1654,7 +1654,7 @@ server <- function(input,output){
       labs(title= "Calidad final de los audios existentes ",
            subtitle = "", 
            caption = "",
-           x = "Date", y = "Promedios",
+           x = "Date", y = "Means",
            tag = "#29")
   })  
   
@@ -1672,7 +1672,7 @@ server <- function(input,output){
       labs(title="Existencia de audios ",
            subtitle = "",
            caption = "",
-           x = "Date", y = "Promedios",
+           x = "Date", y = "Means",
            tag = "#30")
   })
   
@@ -1689,7 +1689,7 @@ server <- function(input,output){
       labs(title= "Calidad inicial de los audios existentes ",
            subtitle = "",
            caption = "",
-           x = "Date", y = "Promedios",
+           x = "Date", y = "Means",
            tag = "#31")
   })
   
@@ -1706,7 +1706,7 @@ server <- function(input,output){
       labs(title= "Calidad final de los audios existentes ",
            subtitle = "", 
            caption = "",
-           x = "Date", y = "Promedios",
+           x = "Date", y = "Means",
            tag = "#32")
   })  
   
@@ -1725,7 +1725,7 @@ server <- function(input,output){
       labs(title="Existencia de audios ",
            subtitle = "",
            caption = "",
-           x = "Date", y = "Promedios",
+           x = "Date", y = "Means",
            tag = "#33")
   })
   
@@ -1742,7 +1742,7 @@ server <- function(input,output){
       labs(title= "Calidad inicial de los audios existentes ",
            subtitle = "",
            caption = "",
-           x = "Date", y = "Promedios",
+           x = "Date", y = "Means",
            tag = "#34")
   })
   
@@ -1759,7 +1759,7 @@ server <- function(input,output){
       labs(title= "Calidad final de los audios existentes ",
            subtitle = "", 
            caption = "",
-           x = "Date", y = "Promedios",
+           x = "Date", y = "Means",
            tag = "#35")
   })
   
@@ -1778,7 +1778,7 @@ output$plot39 <-renderPlot({
     labs(title= "Aplicacion de CI en adultos ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag ="#39"
     )
 })
@@ -1796,7 +1796,7 @@ output$plot40 <-renderPlot({
     labs(title="Aplicacion de CI en ninos ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#40")
 })
 
@@ -1815,7 +1815,7 @@ output$plot41 <-renderPlot({
     labs(title= "Calificacion de desempeno final ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#41")
 })
 
@@ -1833,7 +1833,7 @@ output$plot44 <-renderPlot({
     labs(title= "Ejecucion de las preguntas ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#44")
 })
 
@@ -1853,7 +1853,7 @@ output$plot42 <-renderPlot({
     labs(title= "Uso de materiales e indicaciones en adultos ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#42")
 })
 
@@ -1871,7 +1871,7 @@ output$plot43 <-renderPlot({
     labs(title= "Uso de materiales e indicaciones en ninos ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#43")
 })
 
@@ -1890,7 +1890,7 @@ output$plot45 <-renderPlot({
     labs(title= "Aplicacion de CI en adultos ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag ="#45"
     )
 })
@@ -1908,7 +1908,7 @@ output$plot46 <-renderPlot({
     labs(title= "Aplicacion de CI en ninos ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#46")
 })
 
@@ -1927,7 +1927,7 @@ output$plot47 <-renderPlot({
     labs(title= "Calificacion de desempeno final ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#47")
 })
 
@@ -1945,7 +1945,7 @@ output$plot50 <-renderPlot({
     labs(title= "Ejecucion de las preguntas ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#50")
 })
 
@@ -1964,7 +1964,7 @@ output$plot48 <-renderPlot({
     labs(title= "Uso de materiales e indicaciones en adultos ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#48")
 })
 
@@ -1982,7 +1982,7 @@ output$plot49 <-renderPlot({
     labs(title= "Uso de materiales e indicaciones en ninos ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#49")
 })
 
@@ -2001,7 +2001,7 @@ output$plot51 <-renderPlot({
     labs(title= "Aplicacion de CI en adultos ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag ="#51")
 })
 
@@ -2018,7 +2018,7 @@ output$plot52 <-renderPlot({
     labs(title= "Aplicacion de CI en ninos ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#52")
 })
 
@@ -2037,7 +2037,7 @@ output$plot53 <-renderPlot({
     labs(title= "Calificacion de desempeno final ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#53")
 })
 
@@ -2055,7 +2055,7 @@ output$plot56 <-renderPlot({
     labs(title= "Ejecucion de las preguntas ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#56")
 })
 
@@ -2074,7 +2074,7 @@ output$plot54 <-renderPlot({
     labs(title= "Uso de materiales e indicaciones en adultos ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#54")
 })
 
@@ -2092,7 +2092,7 @@ output$plot55 <-renderPlot({
     labs(title= "Uso de materiales e indicaciones en ninos ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#55")
 })
 
@@ -2113,7 +2113,7 @@ output$plot57 <-renderPlot({
     labs(title= "Aplicacion de CI en adultos ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag ="#57")
 })
 
@@ -2130,7 +2130,7 @@ output$plot58 <-renderPlot({
     labs(title= "Aplicacion de CI en ninos ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#58")
 })
 
@@ -2149,7 +2149,7 @@ output$plot59 <-renderPlot({
     labs(title= "Calificacion de desempeno final ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#59")
 })
 
@@ -2167,7 +2167,7 @@ output$plot62 <-renderPlot({
     labs(title= "Ejecucion de las preguntas ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "62#62")
 })
 
@@ -2186,7 +2186,7 @@ output$plot60 <-renderPlot({
     labs(title= "Uso de materiales e indicaciones en adultos ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#60")
 })
 
@@ -2204,7 +2204,7 @@ output$plot61 <-renderPlot({
     labs(title= "Uso de materiales e indicaciones en ninos ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#61")
 })
 
@@ -2223,7 +2223,7 @@ output$plot63 <-renderPlot({
     labs(title= "Aplicacion de CI en adultos ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag ="#63")
 })
 
@@ -2240,7 +2240,7 @@ output$plot64 <-renderPlot({
     labs(title= "Aplicacion de CI en ninos ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#64")
 })
 
@@ -2259,7 +2259,7 @@ output$plot65 <-renderPlot({
     labs(title= "Calificacion de desempeno final ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#65")
 })
 
@@ -2277,7 +2277,7 @@ output$plot68 <-renderPlot({
     labs(title= "Ejecucion de las preguntas ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#68")
 })
 
@@ -2296,7 +2296,7 @@ output$plot66 <-renderPlot({
     labs(title= "Uso de materiales e indicaciones en adultos ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#66")
 })
 
@@ -2314,7 +2314,7 @@ output$plot67 <-renderPlot({
     labs(title= "Uso de materiales e indicaciones en ninos ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#67")
 })
 
@@ -2334,7 +2334,7 @@ output$plot69 <-renderPlot({
     labs(title="Transcripcion correcta",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#69")
 })
 
@@ -2351,7 +2351,7 @@ output$plot70 <-renderPlot({
     labs(title= "Similitud de clasificacion ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#70")
 })
 
@@ -2370,7 +2370,7 @@ output$plot73 <-renderPlot({
     labs(title="Transcripcion correcta",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#73")
 })
 
@@ -2387,7 +2387,7 @@ output$plot74 <-renderPlot({
     labs(title= "Similitud de clasificacion ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#74")
 })
 
@@ -2406,7 +2406,7 @@ output$plot75 <-renderPlot({
     labs(title="Transcripcion correcta",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#75")
 })
 
@@ -2423,7 +2423,7 @@ output$plot76 <-renderPlot({
     labs(title= "Similitud de clasificacion ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#76")
 })
 
@@ -2442,7 +2442,7 @@ output$plot77 <-renderPlot({
     labs(title="Transcripcion correcta",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#77")
 })
 
@@ -2459,7 +2459,7 @@ output$plot78 <-renderPlot({
     labs(title= "Similitud de clasificacion ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#78")
 })
 
@@ -2478,7 +2478,7 @@ output$plot79 <-renderPlot({
     labs(title="Transcripcion correcta",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#79")
 })
 
@@ -2495,7 +2495,7 @@ output$plot80 <-renderPlot({
     labs(title= "Similitud de clasificacion ",
          subtitle = "",
          caption = "",
-         x = "Date", y = "Promedios",
+         x = "Date", y = "Means",
          tag = "#80")
 })
 
