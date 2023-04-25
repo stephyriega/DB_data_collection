@@ -477,7 +477,7 @@ ui <- fluidPage(
       #Seleccion:  Age group
       checkboxGroupInput(
         inputId="age_input",
-        label="Age group de ninos",
+        label="Age group",
         choices=unique(all_data$g_age),
         selected=unique(all_data$g_age)
       ),
@@ -505,14 +505,14 @@ ui <- fluidPage(
         tabPanel("General",
                  br(),
                  
-                 p("Quantity and Time", 
+                 p("Main indicators: quantity of surveys and average survey duration", 
                    style="text-align:justify;color:black"
                  ),
                  
                  conditionalPanel(
                    condition = "input.dep_button == 'Time Series'",
                   
-                   p("Dates filter allowed", 
+                   p("", 
                      style="text-align:justify;color:black"
                    ),
                    
@@ -613,7 +613,7 @@ ui <- fluidPage(
                    
                    condition = "input.dep_button == 'Cross Section'",
                    
-                   p("All filters allowed", 
+                   p("", 
                      style="text-align:justify;color:black"
                    ),
                    
@@ -639,7 +639,7 @@ ui <- fluidPage(
         tabPanel("Audio",
                  br(),
                  
-                 p("Indicators of quantity and quality of audio recording", 
+                 p("Audio indicators: Availability of audios, Supervision of audios and Quality of audios", 
                    style="text-align:justify;color:black"
                  ),
                 
@@ -759,7 +759,7 @@ ui <- fluidPage(
                  br(),
                  
                  
-                 p("Indicators of surveyor quality: performance in consent, explanation of the use of materials and indications and final review", 
+                 p("Surveyor indicators: performance in consent, explanation of the use of materials and indications  (for parent and child) and final perfomance review", 
                    style="text-align:justify;color:black"
                  ),
                  
@@ -777,7 +777,7 @@ ui <- fluidPage(
                             column(4,plotOutput('plot41')),
                             column(4,plotOutput('plot42')),
                             column(4,plotOutput('plot43')),
-                            column(4,plotOutput('plot44'))
+                            column(4,plotOutput('plot44')) 
                    ),
                    
                    selectInput(inputId="dep_button3",label="Choose level:",choices=c("Town", "Treatment group", "Age group", "Team"),multiple=FALSE
@@ -884,7 +884,7 @@ ui <- fluidPage(
                           column(2,)
                  ),
                  br(),
-                 p("Use of materials and guidelines", 
+                 p("Use of materials and indications (for parent and child)", 
                    style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                  ),
                  fluidRow(12,
@@ -897,7 +897,7 @@ ui <- fluidPage(
                           column(2,)
                  ),
                  br(),
-                 p("Final revision", 
+                 p("Final perfomance rating", 
                    style="text-align:justify;color:black;background-color:#c3df9d;padding:15px;border-radius:10px"
                  ),
                  fluidRow(12,
@@ -915,7 +915,7 @@ ui <- fluidPage(
                  
                  br(),
                  
-                 p("Quality of transcription and similarity to the classification of answers", 
+                 p("Open answers indicators: Transcription accuracy and classification of open answer", 
                    style="text-align:justify;color:black"
                  ),
                 
@@ -1026,7 +1026,7 @@ ui <- fluidPage(
                  
                  br(),
                  
-                 p("Ranking of surveyors: summary, consent, open answer data, use of materials and guidelines, and review of questions (in order). ", 
+                 p("Ranking of surveyors: summary, consent, open answer data, use of materials and guidelines (for parent and child), and review of questions (in order). ", 
                    style="text-align:justify;color:black"
                  ),
                  
@@ -1113,7 +1113,7 @@ server <- function(input,output){
       coord_polar("y", start=0)+
       scale_fill_brewer(palette="Greens")+
       theme_minimal()+
-      labs(title = " Quantity de surveys by percentage of audios",
+      labs(title = "Availability of audios",
            subtitle = "",
            caption = "",
            x = "", y = "",
@@ -1133,7 +1133,7 @@ server <- function(input,output){
       coord_polar("y", start=0)+
       scale_fill_brewer(palette="Greens")+
       theme_minimal()+
-      labs(title = "Quantity of surveys by quality",
+      labs(title = "Supervision of audios",
            subtitle = "",
            caption = "",
            x = "", y = "",
@@ -1153,7 +1153,7 @@ server <- function(input,output){
       coord_polar("y", start=0)+
       scale_fill_brewer(palette="Greens")+
       theme_minimal()+
-      labs(title = "Quantity de hogares segun calidad promedio",
+      labs(title = "Quality of audios",
            subtitle = "",
            caption = "",
            x = "", y = "",
@@ -1229,7 +1229,7 @@ server <- function(input,output){
       geom_bar(stat="identity")+
       scale_fill_brewer(palette="Greens")+
       theme_minimal()+
-      labs(title = "Minutes acumulados",
+      labs(title = "Minutes in total",
            subtitle = "",
            caption = "",
            x = NULL, y = NULL,
@@ -1250,7 +1250,7 @@ server <- function(input,output){
       coord_polar("y", start=0)+
       scale_fill_brewer(palette="Greens")+
       theme_minimal()+
-      labs(title = "En adultos",
+      labs(title = "In parents",
            subtitle = "",
            caption = "",
            x = "", y = "",
@@ -1270,7 +1270,7 @@ server <- function(input,output){
       coord_polar("y", start=0)+
       scale_fill_brewer(palette="Greens")+
       theme_minimal()+
-      labs(title = "En ninos",
+      labs(title = "In child",
            subtitle = "",
            caption = "",
            x = "", y = "",
@@ -1290,7 +1290,7 @@ server <- function(input,output){
       coord_polar("y", start=0)+
       scale_fill_brewer(palette="Greens")+
       theme_minimal()+
-      labs(title = "En adultos",
+      labs(title = "In parents",
            subtitle = "",
            caption = "",
            x = "", y = "",
@@ -1310,7 +1310,7 @@ server <- function(input,output){
       coord_polar("y", start=0)+
       scale_fill_brewer(palette="Greens")+
       theme_minimal()+
-      labs(title = "En ninos",
+      labs(title = "In child",
            subtitle = "",
            caption = "",
            x = "", y = "",
@@ -1351,7 +1351,7 @@ server <- function(input,output){
       coord_polar("y", start=0)+
       scale_fill_brewer(palette="Greens")+
       theme_minimal()+
-      labs(title = "Preguntas realizadas",
+      labs(title = "Attention of the participants",
            subtitle = "",
            caption = "",
            x = "", y = "",
@@ -1513,7 +1513,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=AUD_M, label=AUD_M))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+ylim(0,100)+
-      labs(title="Existencia de audios ",
+      labs(title="Availability of audios ",
            subtitle = "",
            caption = "",
            x = "Date", y = "Means",
@@ -1530,7 +1530,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=QF_AUD_M, label=QF_AUD_M))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+ylim(0,100)+
-      labs(title= "Calidad inicial de los audios existentes ",
+      labs(title= "Supervision of audios ",
            subtitle = "",
            caption = "",
            x = "Date", y = "Means",
@@ -1547,7 +1547,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=Q_AUD_M, label=Q_AUD_M))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+ylim(0,100)+
-      labs(title= "Calidad final de los audios existentes ",
+      labs(title= "Quality of audios ",
            subtitle = "",
            caption = "",
            x = "Date", y = "Means",
@@ -1565,7 +1565,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=AUD_M, color= MUN, label=AUD_M))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+ylim(0,100)+
-      labs(title="Existencia de audios ",
+      labs(title="Availability of audios ",
            subtitle = "",
            caption = "",
            x = "Date", y = "Means",
@@ -1582,7 +1582,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=QF_AUD_M,color= MUN,  label=QF_AUD_M))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+ylim(0,100)+
-      labs(title= "Calidad inicial de los audios existentes ",
+      labs(title= "Supervision of audios ",
            subtitle = "",
            caption = "",
            x = "Date", y = "Means",
@@ -1599,7 +1599,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=Q_AUD_M, color= MUN, label=Q_AUD_M))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+ylim(0,100)+
-      labs(title= "Calidad final de los audios existentes ",
+      labs(title= "Quality of audios ",
            subtitle = "", 
            caption = "",
            x = "Date", y = "Means",
@@ -1617,7 +1617,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=AUD_M, color= TREAT, label=AUD_M))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+ylim(0,100)+
-      labs(title="Existencia de audios ",
+      labs(title="Availability of audios ",
            subtitle = "",
            caption = "",
            x = "Date", y = "Means",
@@ -1634,7 +1634,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=QF_AUD_M,color= TREAT,  label=QF_AUD_M))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+ylim(0,100)+
-      labs(title= "Calidad inicial de los audios existentes ",
+      labs(title= "Supervision of audios ",
            subtitle = "",
            caption = "",
            x = "Date", y = "Means",
@@ -1651,7 +1651,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=Q_AUD_M, color= TREAT, label=Q_AUD_M))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+ylim(0,100)+
-      labs(title= "Calidad final de los audios existentes ",
+      labs(title= "Quality of audios ",
            subtitle = "", 
            caption = "",
            x = "Date", y = "Means",
@@ -1669,7 +1669,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=AUD_M, color= GAGE, label=AUD_M))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+ylim(0,100)+
-      labs(title="Existencia de audios ",
+      labs(title="Availability of audios ",
            subtitle = "",
            caption = "",
            x = "Date", y = "Means",
@@ -1686,7 +1686,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=QF_AUD_M,color= GAGE,  label=QF_AUD_M))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+ylim(0,100)+
-      labs(title= "Calidad inicial de los audios existentes ",
+      labs(title= "Supervision of audios ",
            subtitle = "",
            caption = "",
            x = "Date", y = "Means",
@@ -1703,7 +1703,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=Q_AUD_M, color= GAGE, label=Q_AUD_M))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+ylim(0,100)+
-      labs(title= "Calidad final de los audios existentes ",
+      labs(title= "Quality of audios ",
            subtitle = "", 
            caption = "",
            x = "Date", y = "Means",
@@ -1722,7 +1722,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=AUD_M, color= TEAM, label=AUD_M))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+ylim(0,100)+
-      labs(title="Existencia de audios ",
+      labs(title="Availability of audios ",
            subtitle = "",
            caption = "",
            x = "Date", y = "Means",
@@ -1739,7 +1739,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=QF_AUD_M,color= TEAM,  label=QF_AUD_M))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+ylim(0,100)+
-      labs(title= "Calidad inicial de los audios existentes ",
+      labs(title= "Supervision of audios ",
            subtitle = "",
            caption = "",
            x = "Date", y = "Means",
@@ -1756,7 +1756,7 @@ server <- function(input,output){
            aes(x=FECHA_, y=Q_AUD_M, color= TEAM, label=Q_AUD_M))+
       geom_line(linetype = "dotted")+
       geom_point(size=2)+ylim(0,100)+
-      labs(title= "Calidad final de los audios existentes ",
+      labs(title= "Quality of audios ",
            subtitle = "", 
            caption = "",
            x = "Date", y = "Means",
@@ -1775,7 +1775,7 @@ output$plot39 <-renderPlot({
          aes(x=FECHA_, y=CON_CG_M,  label=CON_CG_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Aplicacion de CI en adultos ",
+    labs(title= "Question execution - parent ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -1793,7 +1793,7 @@ output$plot40 <-renderPlot({
          aes(x=FECHA_, y=CON_CH_M,  label=CON_CH_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title="Aplicacion de CI en ninos ",
+    labs(title="Question execution - child ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -1812,7 +1812,7 @@ output$plot41 <-renderPlot({
          aes(x=FECHA_, y=CALF_M,  label=CALF_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Calificacion de desempeno final ",
+    labs(title= "Final performance rating ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -1830,7 +1830,7 @@ output$plot44 <-renderPlot({
          aes(x=FECHA_, y=PREG_M,  label=PREG_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Ejecucion de las preguntas ",
+    labs(title= "Attention of the participants",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -1850,7 +1850,7 @@ output$plot42 <-renderPlot({
          aes(x=FECHA_, y=USO_CG_M,  label=USO_CG_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Uso de materiales e indicaciones en adultos ",
+    labs(title= "Use of materials and guidelines - parent ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -1868,7 +1868,7 @@ output$plot43 <-renderPlot({
          aes(x=FECHA_, y=USO_CH_M,  label=USO_CH_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Uso de materiales e indicaciones en ninos ",
+    labs(title= "Use of materials and guidelines - child ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -1887,7 +1887,7 @@ output$plot45 <-renderPlot({
          aes(x=FECHA_, y=CON_CG_M, color=MUN , label=CON_CG_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Aplicacion de CI en adultos ",
+    labs(title= "Question execution - parent ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -1905,7 +1905,7 @@ output$plot46 <-renderPlot({
          aes(x=FECHA_, y=CON_CH_M, color=MUN , label=CON_CH_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Aplicacion de CI en ninos ",
+    labs(title= "Question execution - child ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -1924,7 +1924,7 @@ output$plot47 <-renderPlot({
          aes(x=FECHA_, y=CALF_M, color=MUN , label=CALF_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Calificacion de desempeno final ",
+    labs(title= "Final performance rating ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -1942,7 +1942,7 @@ output$plot50 <-renderPlot({
          aes(x=FECHA_, y=PREG_M, color=MUN , label=PREG_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Ejecucion de las preguntas ",
+    labs(title= "Attention of the participants",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -1961,7 +1961,7 @@ output$plot48 <-renderPlot({
          aes(x=FECHA_, y=USO_CG_M, color=MUN , label=USO_CG_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Uso de materiales e indicaciones en adultos ",
+    labs(title= "Use of materials and guidelines - parent ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -1979,7 +1979,7 @@ output$plot49 <-renderPlot({
          aes(x=FECHA_, y=USO_CH_M, color=MUN , label=USO_CH_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Uso de materiales e indicaciones en ninos ",
+    labs(title= "Use of materials and guidelines - child ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -1998,7 +1998,7 @@ output$plot51 <-renderPlot({
          aes(x=FECHA_, y=CON_CG_M, color=TREAT , label=CON_CG_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Aplicacion de CI en adultos ",
+    labs(title= "Question execution - parent ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2015,7 +2015,7 @@ output$plot52 <-renderPlot({
          aes(x=FECHA_, y=CON_CH_M, color=TREAT , label=CON_CH_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Aplicacion de CI en ninos ",
+    labs(title= "Question execution - child ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2034,7 +2034,7 @@ output$plot53 <-renderPlot({
          aes(x=FECHA_, y=CALF_M, color=TREAT , label=CALF_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Calificacion de desempeno final ",
+    labs(title= "Final performance rating ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2052,7 +2052,7 @@ output$plot56 <-renderPlot({
          aes(x=FECHA_, y=PREG_M, color=TREAT , label=PREG_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Ejecucion de las preguntas ",
+    labs(title= "Attention of the participants",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2071,7 +2071,7 @@ output$plot54 <-renderPlot({
          aes(x=FECHA_, y=USO_CG_M, color=TREAT , label=USO_CG_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Uso de materiales e indicaciones en adultos ",
+    labs(title= "Use of materials and guidelines - parent ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2089,7 +2089,7 @@ output$plot55 <-renderPlot({
          aes(x=FECHA_, y=USO_CH_M, color=TREAT , label=USO_CH_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Uso de materiales e indicaciones en ninos ",
+    labs(title= "Use of materials and guidelines - child ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2110,7 +2110,7 @@ output$plot57 <-renderPlot({
          aes(x=FECHA_, y=CON_CG_M, color=GAGE , label=CON_CG_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Aplicacion de CI en adultos ",
+    labs(title= "Question execution - parent ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2127,7 +2127,7 @@ output$plot58 <-renderPlot({
          aes(x=FECHA_, y=CON_CH_M, color=GAGE , label=CON_CH_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Aplicacion de CI en ninos ",
+    labs(title= "Question execution - child ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2146,7 +2146,7 @@ output$plot59 <-renderPlot({
          aes(x=FECHA_, y=CALF_M, color=GAGE , label=CALF_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Calificacion de desempeno final ",
+    labs(title= "Final performance rating ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2164,7 +2164,7 @@ output$plot62 <-renderPlot({
          aes(x=FECHA_, y=PREG_M, color=GAGE , label=PREG_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Ejecucion de las preguntas ",
+    labs(title= "Attention of the participants",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2183,7 +2183,7 @@ output$plot60 <-renderPlot({
          aes(x=FECHA_, y=USO_CG_M, color=GAGE , label=USO_CG_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Uso de materiales e indicaciones en adultos ",
+    labs(title= "Use of materials and guidelines - parent ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2201,7 +2201,7 @@ output$plot61 <-renderPlot({
          aes(x=FECHA_, y=USO_CH_M, color=GAGE , label=USO_CH_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Uso de materiales e indicaciones en ninos ",
+    labs(title= "Use of materials and guidelines - child ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2220,7 +2220,7 @@ output$plot63 <-renderPlot({
          aes(x=FECHA_, y=CON_CG_M, color=TEAM , label=CON_CG_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Aplicacion de CI en adultos ",
+    labs(title= "Question execution - parent ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2237,7 +2237,7 @@ output$plot64 <-renderPlot({
          aes(x=FECHA_, y=CON_CH_M, color=TEAM , label=CON_CH_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Aplicacion de CI en ninos ",
+    labs(title= "Question execution - child ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2256,7 +2256,7 @@ output$plot65 <-renderPlot({
          aes(x=FECHA_, y=CALF_M, color=TEAM , label=CALF_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Calificacion de desempeno final ",
+    labs(title= "Final performance rating ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2274,7 +2274,7 @@ output$plot68 <-renderPlot({
          aes(x=FECHA_, y=PREG_M, color=TEAM , label=PREG_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Ejecucion de las preguntas ",
+    labs(title= "Attention of the participants",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2293,7 +2293,7 @@ output$plot66 <-renderPlot({
          aes(x=FECHA_, y=USO_CG_M, color=TEAM , label=USO_CG_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Uso de materiales e indicaciones en adultos ",
+    labs(title= "Use of materials and guidelines - parent ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2311,7 +2311,7 @@ output$plot67 <-renderPlot({
          aes(x=FECHA_, y=USO_CH_M, color=TEAM , label=USO_CH_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Uso de materiales e indicaciones en ninos ",
+    labs(title= "Use of materials and guidelines - child ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2331,7 +2331,7 @@ output$plot69 <-renderPlot({
          aes(x=FECHA_, y= TRANS_M, label= TRANS_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title="Transcripcion correcta",
+    labs(title="Accurate transcription",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2348,7 +2348,7 @@ output$plot70 <-renderPlot({
          aes(x=FECHA_, y= SIM_M, label= SIM_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Similitud de clasificacion ",
+    labs(title= "Classification of open answer ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2367,7 +2367,7 @@ output$plot73 <-renderPlot({
          aes(x=FECHA_, y= TRANS_M, color= MUN, label= TRANS_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title="Transcripcion correcta",
+    labs(title="Accurate transcription",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2384,7 +2384,7 @@ output$plot74 <-renderPlot({
          aes(x=FECHA_, y= SIM_M,color= MUN,  label= SIM_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Similitud de clasificacion ",
+    labs(title= "Classification of open answer ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2403,7 +2403,7 @@ output$plot75 <-renderPlot({
          aes(x=FECHA_, y= TRANS_M, color= TREAT, label= TRANS_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title="Transcripcion correcta",
+    labs(title="Accurate transcription",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2420,7 +2420,7 @@ output$plot76 <-renderPlot({
          aes(x=FECHA_, y= SIM_M,color= TREAT,  label= SIM_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Similitud de clasificacion ",
+    labs(title= "Classification of open answer ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2439,7 +2439,7 @@ output$plot77 <-renderPlot({
          aes(x=FECHA_, y= TRANS_M, color= GAGE, label= TRANS_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title="Transcripcion correcta",
+    labs(title="Accurate transcription",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2456,7 +2456,7 @@ output$plot78 <-renderPlot({
          aes(x=FECHA_, y= SIM_M,color= GAGE,  label= SIM_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Similitud de clasificacion ",
+    labs(title= "Classification of open answer ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2475,7 +2475,7 @@ output$plot79 <-renderPlot({
          aes(x=FECHA_, y= TRANS_M, color= TEAM, label= TRANS_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title="Transcripcion correcta",
+    labs(title="Accurate transcription",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2492,7 +2492,7 @@ output$plot80 <-renderPlot({
          aes(x=FECHA_, y= SIM_M,color= TEAM,  label= SIM_M))+
     geom_line(linetype = "dotted")+
     geom_point(size=2)+ylim(0,100)+
-    labs(title= "Similitud de clasificacion ",
+    labs(title= "Classification of open answer ",
          subtitle = "",
          caption = "",
          x = "Date", y = "Means",
@@ -2512,7 +2512,7 @@ output$plot81 <-renderPlot({
     coord_polar("y", start=0)+
     scale_fill_brewer(palette="Greens")+
     theme_minimal()+
-    labs(title = "Transcripcion correcta",
+    labs(title = "Accurate transcription",
          subtitle = "",
          caption = "",
          x = "", y = "",
@@ -2532,7 +2532,7 @@ output$plot82 <-renderPlot({
     coord_polar("y", start=0)+
     scale_fill_brewer(palette="Greens")+
     theme_minimal()+
-    labs(title = "Similitud de clasificacion",
+    labs(title = "Classification of open answer",
          subtitle = "",
          caption = "",
          x = "", y = "",
